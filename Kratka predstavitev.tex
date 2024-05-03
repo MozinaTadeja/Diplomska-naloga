@@ -1,0 +1,182 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[slovene]{babel}
+\usepackage{amsfonts,amssymb,amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+
+
+\def\N{\mathbb{N}} % mnozica naravnih stevil
+\def\Z{\mathbb{Z}} % mnozica celih stevil
+\def\Q{\mathbb{Q}} % mnozica racionalnih stevil
+\def\R{\mathbb{R}} % mnozica realnih stevil
+\def\C{\mathbb{C}} % mnozica kompleksnih stevil
+\newcommand{\geslo}[2]{\noindent\textbf{#1} \quad \hangindent=1cm #2\\[-1pc]}
+
+\def\qed{$\hfill\Box$}   % konec dokaza
+\def\qedm{$\qquad\Box$}   % konec dokaza v matematičnem načinu
+\newtheorem{izrek}{Izrek}
+\newtheorem{trditev}{Trditev}
+\newtheorem{posledica}{Posledica}
+\newtheorem{lema}{Lema}
+\newtheorem{opomba}{Opomba}
+\newtheorem{definicija}{Definicija}
+\newtheorem{zgled}{Zgled}
+
+\title{Metrična dimenzija grafa deliteljev niča \\ 
+\Large Kratka predstavitev}
+\author{Tadeja Možina}
+\date{4.\ december 2023}
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Uvod}
+Pojem metrične dimenzije grafa je v sedemdesetih letih prejšnjega stoletja 
+uvedel Peter J. Slater, uporablja pa se 
+na različnih področjih, kot na primer v farmacevtski kemiji, navigaciji 
+robotov in kombinatorični optimizaciji. 
+Formule za metrično dimenzijo 
+poljubnega grafa ni, v diplomski nalogi pa bomo navedeli 
+različne izreke, ki jo bodo vseeno lahko omejili. Gledali bomo neusmerjene 
+enostavne grafe, predvsem pa grafe deliteljev niča poljubnega kolobarja, 
+posebej pa bomo pogledali metrično dimenzijo kolobarja ostankov po danem modulu 
+in kolobarja matrik nad danim poljem.
+%
+\begin{definicija}
+    Naj bo R kolobar in $Z(R)$ njegova množica deliteljev niča.
+    \emph{Graf deliteljev niča kolobarja R} je enostaven neusmerjen graf z množico
+    vozlišč $Z^{*}(R) = Z(R)\setminus\{0\} $, kjer sta dve različni vozlišči $a,b \in Z^{*}(R) $
+    povezani natanko tedaj, ko je $ab = 0$ ali $ba = 0$. Označimo ga z $\Gamma(R)$.
+\end{definicija}
+%
+\begin{zgled}
+    Poglejmo si graf deliteljev niča kolobarja $\Z_{10}$. Množica njegovih vozlišč je 
+    $V(\Gamma(\Z_{10})) = Z^{*}(\Z_{10}) = \{2, 4, 5, 6, 8\}$, množica povezav pa 
+    je enaka $E(\Gamma(\Z_{10})) = \{2 \sim 5, 4 \sim 5, 6 \sim 5, 8 \sim 5\}$.
+\end{zgled}
+%
+\begin{definicija}
+    Naj bo $W = \{ w_1,w_2, \ldots, w_k \}$ urejena podmnožica množice $V(\Gamma)$ in 
+    $v \in V(\Gamma)$. Potem 
+    se $k$-dimenzionalni vektor \\
+    $r(v|W)=( d(v,w_1), \ldots, d(v,w_k) )$ imenuje 
+    \emph{predstavitev $v$ glede na množico $W$}. 
+
+\end{definicija}
+%
+\begin{zgled}\label{prim1}
+    Poglejmo si graf deliteljev niča kolobarja $\Z_{10}$. Za $W$ vzemimo 
+    $\{2,4,5\}$ in poglejmo predstavitve glede na $W$. To so ... (na sliki).
+    %$r(2|W)=( d(2,2), d(2,4), d(6,5) ) = ( 0, 2, 1 )$,
+    %$r(4|W)=( d(4,2), d(4,4), d(4,5) ) = ( 2, 0, 1 )$,
+    %$r(5|W)=( d(5,2), d(5,4), d(5,5) ) = ( 2, 2, 0 )$,
+    %$r(6|W)=( d(6,2), d(6,4), d(6,5) ) = ( 2, 2, 1 )$ in 
+    %$r(8|W)=( d(8,2), d(8,4), d(8,5) ) = ( 2, 2, 1 )$.
+\end{zgled}
+%
+  Množici $W$ pravimo \emph{rešljiva množica grafa $\Gamma$}, če imata poljubni različni 
+  vozlišči v $V(\Gamma)$ različni predstavitvi glede na $W$. Če je $W$ rešljiva množica 
+  z najmanjšo močjo, ji pravimo \emph{baza $\Gamma$}.
+%
+\begin{definicija}
+    \emph{Metrična dimenzija grafa $\Gamma$} je moč njegove baze. Označimo jo z $dim(\Gamma)$.
+\end{definicija}
+%
+\begin{zgled}
+    Pri prejšnjem zgledu opazimo, da $W = \{2,4,5\}$ ni rešljiva množica grafa $\Gamma(\Z_{10})$. 
+    Vendar pa to ne pomeni, da rešljiva množica moči $3$ ne obstaja. Vzemimo $W_2 = \{2,4,6\}$ in 
+    poglejmo predstavitve glede na $W_2$.\\
+    Izkaže se, da $W_2 = \{2,4,6\}$ ni samo rešljiva množica grafa $\Gamma(\Z_{10})$, ampak 
+    celo njegova baza. Baza grafa ni nujno enolično določena, v tem primeru bi lahko vzeli 
+    tudi $\{2,4,8\}$, $\{2,6,8\}$ ali $\{4,6,8\}$. Metrična dimenzija grafa $\Gamma(\Z_{10})$ je 
+    tako $3$.\\
+    Opazimo še: če preverjamo, ali je $W= \{w_1,w_2, \ldots, w_k\} \subseteq V(\Gamma)$ 
+    rešljiva množica $\Gamma$, je dovolj gledati predstavitve elementov iz 
+    $V(\Gamma) \setminus W$ glede na $W$. Namreč če izberemo $w_i \in W$ bo vektor 
+    $(d(w_i,w_1),d(w_i,w_2), \ldots d(w_i,w_k))$ na $i$-tem mestu imel 0. 
+    Če bi katerokoli drugo vozlišče $u$ imelo enako predstavitev kot $w_i$, bi 
+    potem moralo veljati, da $d(w_i,w_i) = d(u,w_i)$, kar pa je edino možno, 
+    če je $u = w_i$.
+\end{zgled}
+%
+
+
+%
+%
+\section{Kolobar ostankov}
+Oglejmo si sedaj kolobar ostankov. Metrično dimenzijo $\Gamma(\Z_{n})$ poiščemo 
+s pomočjo praštevilskega razcepa $n$. Če je $n$ praštevilo, je graf deliteljev 
+niča od $\Z_{n}$ prazen graf, torej nas ta ne zanima.
+%
+\begin{trditev}
+    Naj bo $n$ produkt dveh različnih praštevil, $n = p_1 \cdot p_2$. Potem je 
+    $dim(\Gamma(\Z_{n})) = p_1 + p_2 - 4$.
+\end{trditev}
+%
+\begin{zgled}
+    $10 = 2\cdot5$, torej je $dim(\Gamma(\Z_{10})) = 5 + 2 - 4 = 3$, kar je enako kot 
+    smo prej povedali.
+\end{zgled}
+%
+\begin{trditev}
+    Naj bo $p$ praštevilo.
+    \begin{enumerate}
+        \item Če je $n = p^2$ in $p > 2$, potem je $dim(\Gamma(\Z_{n})) = p - 2$,
+        \item Če je $n = p^k$ in $k \geq 3$, potem je $dim(\Gamma(\Z_{n})) = p^{k-1} - k$.
+    \end{enumerate}
+\end{trditev}
+%
+\begin{izrek}
+    Naj bo $n = \prod_{i = 1}^{r}p_i^{n_i}$ praštevilski razcep $n$. Če je $r \geq 2$ in 
+    $\sum_{i=1}^{r}n_i \geq 3$, potem je 
+    \begin{equation*}
+        dim(\Gamma(\Z_{n})) = n - \varphi(n) - \prod_{i = 1}^{r}(n_i + 1) + 1,
+    \end{equation*}
+    kjer je $\varphi(n)$ Eulerjeva funkcija $\varphi$.
+\end{izrek}
+%
+\begin{zgled}
+    Poiščimo metrično dimenzijo $\Gamma(\Z_{12})$. Praštevilski razcep $12$ je 
+    $12 = 2^2 \cdot 3$, torej je \\
+    $dim(\Gamma(\Z_{10})) = 12 - \varphi(12) - (2 + 1)\cdot(1 + 1) + 1 = 12 - 4 - 6 + 1 = 3$.
+    Za bazo bi lahko vzeli množico $W = \{2,3,4\}$.
+\end{zgled}
+%
+%
+\section{Kolobar matrik nad poljem}
+Za konec si oglejmo še metrično dimenzijo grafa deliteljev niča kolobarja matrik nad 
+končnim poljem. Iz Algebre 2 že vemo, da so vsa končna polja izomorfna $\Z_{p^k}$, 
+za neka $p$ in $k$, kjer je $p$ praštevilo, $k \in \N$. Z 
+$M_n(K)$ označimo kolobar $n \times n$ matrik nad končnim poljem $K$ ter z $Mat_n^r(K)$ 
+$n \times n$ matrike ranga $r$ nad končnim poljem $K$. Označimo še $m_k(n,r)$ kot 
+moč $Mat_n^r(K)$.
+%
+\begin{izrek}
+    Naj bo $|K| = k \geq 3$. Potem je \\
+    $dim(\Gamma(M_n(K))) = k^{n^2} - \sum_{i=1}^{n}\frac{m_k(n,i)}{m_k(i,i)} - m_k(n,n)$.
+\end{izrek}
+%
+\begin{izrek}
+    Naj bo $n \geq 3$ in $|K| = k = 2$. Potem je \\
+    $dim(\Gamma(M_n(K))) = 2^{n^2} - \sum_{i=1}^{n}\frac{m_2(n,i)}{m_2(i,i)} - m_2(n,n)$.
+\end{izrek}
+%
+\begin{trditev}
+    $dim(\Gamma(M_2(\Z_2))) = 3$.
+\end{trditev}
+%
+\begin{zgled}
+    $\Gamma(M_2(\Z_2))$.
+\end{zgled}
+%
+\end{document}
